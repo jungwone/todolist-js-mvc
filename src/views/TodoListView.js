@@ -20,6 +20,9 @@ export default class TodoListView extends View {
       return;
     }
 
+    if (target.id === "todo-remove") {
+      this.emit("@remove", { value: target.parentNode.dataset.id });
+    }
   }
 
   show(todoList = []) {
@@ -29,6 +32,8 @@ export default class TodoListView extends View {
       const items = this.template.getTodoList(todoList);
       this.element.innerHTML = items;
     }
+
+    super.show();
   }
 }
 
@@ -55,3 +60,5 @@ class Template {
       `;
   }
 }
+
+// U+2714

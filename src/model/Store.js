@@ -4,8 +4,9 @@ export default class Store {
   }
 
   addTodo(text) {
-    this.todoList.push({ id: this.todoList.length + 1, text });
     this.todoList.push({ id: this.todoList.length + 1, text, checked: false });
+  }
+
   checkTodo(id) {
     this.todoList.map((todo) => {
       if (todo.id === Number(id)) {
@@ -14,5 +15,8 @@ export default class Store {
       return todo;
     });
   }
+
+  removeTodo(id) {
+    this.todoList = this.todoList.filter((todo) => Number(id) !== todo.id);
   }
 }

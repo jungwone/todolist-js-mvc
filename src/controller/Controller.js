@@ -19,6 +19,9 @@ export default class Controller {
       this.checkTodo(event.detail.value);
     });
 
+    this.todoListView.on("@remove", (event) => {
+      this.removeTodo(event.detail.value);
+    });
   }
 
   addTodo(text) {
@@ -28,6 +31,11 @@ export default class Controller {
 
   checkTodo(id) {
     this.store.checkTodo(id);
+    this.render();
+  }
+
+  removeTodo(id) {
+    this.store.removeTodo(id);
     this.render();
   }
 
