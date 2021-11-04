@@ -14,10 +14,20 @@ export default class Controller {
     this.todoFormView.on("@submit", (event) =>
       this.addTodo(event.detail.value)
     );
+
+    this.todoListView.on("@check", (event) => {
+      this.checkTodo(event.detail.value);
+    });
+
   }
 
   addTodo(text) {
     this.store.addTodo(text);
+    this.render();
+  }
+
+  checkTodo(id) {
+    this.store.checkTodo(id);
     this.render();
   }
 

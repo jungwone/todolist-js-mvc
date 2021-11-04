@@ -5,6 +5,21 @@ export default class TodoListView extends View {
   constructor() {
     super(qs("#todo-list"));
     this.template = new Template();
+    this.bindEvents();
+  }
+
+  bindEvents() {
+    this.on("click", (event) => this.handleClick(event));
+  }
+
+  handleClick(event) {
+    const target = event.target;
+
+    if (target.id === "todo-check") {
+      this.emit("@check", { value: target.parentNode.dataset.id });
+      return;
+    }
+
   }
 
   show(todoList = []) {
@@ -27,7 +42,15 @@ class Template {
   getTodoList(data = []) {
     return `
       ${data
-        .map(({ id, text }) => `<li class='todo' data-id=${id}>${text}</li>`)
+        .map(
+          ({ id, text, checked }) => `
+          <li class='todo' data-id=${id}>
+            <button id='todo-check'>${checked ? "✔" : ""}</button>
+            <span class='text'>${text}</span>
+            <button id='todo-remove' class='remove'>X</button>
+          </li>
+        `
+        )
         .join("")}
       `;
   }
